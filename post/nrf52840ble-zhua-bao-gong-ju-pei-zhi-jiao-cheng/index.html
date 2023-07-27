@@ -1,0 +1,241 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>nRF52840BLE抓包工具配置教程 | xyzper&#39;s 车联网安全博客</title>
+
+<link rel="shortcut icon" href="https://xyzper.github.io/favicon.ico?v=1690429540568">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xyzper.github.io/styles/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            xyzper&#39;s 车联网安全博客
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+                <div class="nav-item">
+                    
+                        <a href="/" class="menu gt-a-link">
+                            首页
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/archives" class="menu gt-a-link">
+                            归档
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/tags" class="menu gt-a-link">
+                            标签
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/post/about" class="menu gt-a-link" target="_blank">
+                            关于
+                        </a>
+                    
+                </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1690429540568" action="/search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    nRF52840BLE抓包工具配置教程
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2023-07-24 ·
+                    </time>
+                    
+                        <a href="https://xyzper.github.io/tag/xMHUgb8VW/" class="post-tags">
+                            # 物联网
+                        </a>
+                    
+                        <a href="https://xyzper.github.io/tag/3m0oAJqAa/" class="post-tags">
+                            # 车联网
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <h1 id="使用nrf52840进行ble抓包教程">使用nRF52840进行BLE抓包教程</h1>
+<h2 id="准备工作">准备工作</h2>
+<ul>
+<li>nRF52840硬件设备 <a href="https://www.nordicsemi.com/Products/nRF52840">SOC芯片购买链接</a>  抓包嗅探模组请找其他网销渠道</li>
+<li>Wireshark安装包 <a href="https://www.wireshark.org/download.html">下载链接</a></li>
+<li>nRF Connect <a href="https://github.com/NordicSemiconductor/pc-nrfconnect-launcher/releases/download/v3.7.1/nrfconnect-setup-3.7.1-ia32.exe">下载链接</a></li>
+<li>nrf_sniffer_for_bluetooth_le 软件包 <a href="https://www.nordicsemi.com/Products/Development-tools/nrf-sniffer-for-bluetooth-le/download#23infotabs">下载链接</a></li>
+<li>Python3</li>
+</ul>
+<h2 id="刷写嗅探抓包固件">刷写嗅探抓包固件</h2>
+<ol>
+<li>打开nRF Connect for Desktop并启动nRF Connect Programmer。</li>
+<li>将nRF52840软件狗插入计算机上的USB端口。</li>
+<li>按下RESET（重置）按钮，将nRF模组置于引导加载程序模式。<br>
+<img src="https://raw.githubusercontent.com/xyzper/xyzper.github.io/PicGo/Photos202307241003681.svg" alt="nRF-view" loading="lazy"></li>
+<li>在应用程序的导航栏中，单击SELECT DEVICE，然后从下拉列表中选择出现设备的序列号。<br>
+<img src="https://raw.githubusercontent.com/xyzper/xyzper.github.io/PicGo/Photos202307241010563.jpg" alt="SELECT-DEVICE" loading="lazy"></li>
+<li>拖拽nrf_sniffer_for_bluetooth_le软件包中的HEX文件夹下的sniffer_nrf52840dongle_nrf52840_4.1.1.hex到File memory layoutzhong视图上。<br>
+<img src="https://raw.githubusercontent.com/xyzper/xyzper.github.io/PicGo/Photos202307241014679.jpg" alt="HEXin" loading="lazy"></li>
+<li>点击左侧DEVICE栏中的Write等待固件刷写完毕。</li>
+</ol>
+<blockquote>
+<p>写入过程完成后，设备将重置，除非应用程序使用DFU触发，否则加密狗将不再显示在Programmer应用程序中，因为它不再处于引导加载程序模式,即无法再重新用此方式刷写，所以务必选择正确的HEX文件。</p>
+</blockquote>
+<ol start="7">
+<li>刷写成功后打开设备管理器可以看到系统识别出nRF设备为COM口。<br>
+<img src="https://raw.githubusercontent.com/xyzper/xyzper.github.io/PicGo/Photos202307241023905.png" alt="com28" loading="lazy"></li>
+</ol>
+<h2 id="wireshark-ble抓包配置">Wireshark BLE抓包配置</h2>
+<ol>
+<li>打开 wireshark 依次点击<code>帮助</code> &gt;&gt; <code>关于Wireshark</code> &gt;&gt; <code>文件夹</code> 打开Global Extcap path对应的文件夹，将软件包内extcap文件夹的内容全部复制到该目录中。<br>
+<img src="https://raw.githubusercontent.com/xyzper/xyzper.github.io/PicGo/Photos202307241032511.jpg" alt="extcap" loading="lazy"></li>
+<li>在该文件夹的地址栏处输入cmd并点击回车，打开命令提示符。<br>
+<img src="https://raw.githubusercontent.com/xyzper/xyzper.github.io/PicGo/Photos202307241035719.png" alt="cmd" loading="lazy"></li>
+<li>输入<code>pip install -r requirements.txt</code> 安装所需的python软件包。</li>
+<li>再次打开Personal Extcap path对应的文件夹，将软件包内Profile_nRF_Sniffer_Bluetooth_LE文件夹复制到该目录中。</li>
+<li>点击wireshark右下角的配置将其选择为<code>Profile_nRF_Sniffer_Bluetooth_LE</code>。<br>
+<img src="https://raw.githubusercontent.com/xyzper/xyzper.github.io/PicGo/Photos202307241041671.jpg" alt="LE" loading="lazy"></li>
+<li>重新打开Wireshark，在捕获接口中选择 nRF Sniffer for Bluetooth LE COM**，双击打开即可开始抓包。<br>
+<img src="https://raw.githubusercontent.com/xyzper/xyzper.github.io/PicGo/Photos202307241043928.jpg" alt="selectinter" loading="lazy"></li>
+<li>显示如下界面即为配置完成。<br>
+<img src="https://raw.githubusercontent.com/xyzper/xyzper.github.io/PicGo/Photos202307241046838.jpg" alt="sniffer" loading="lazy"></li>
+</ol>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://xyzper.github.io/post/ble-an-quan-ru-men-fen-xi-yi/" class="post-title gt-a-link">
+                    BLE安全入门分析（一）
+                </a>
+            </div>
+        
+
+        
+            <span id="/post/nrf52840ble-zhua-bao-gong-ju-pei-zhi-jiao-cheng/" class="leancloud_visitors" data-flag-title="nRF52840BLE抓包工具配置教程">
+                <em class="post-meta-item-text">阅读量 </em>
+                <i class="leancloud-visitors-count">0</i>
+            </span>
+        
+
+        
+
+        
+            <script src='https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js'></script>
+
+<style>
+	div#vcomments{
+		width:100%;
+		max-width: 1000px;
+		padding: 2.5%
+	}
+</style>
+
+
+	<div id="vcomments"></div>
+
+<script>
+	new Valine({
+		el: '#vcomments',
+		appId: 'bKtunv6JZMJ73H89Y8lL7ZMc-gzGzoHsz',
+		appKey: 'yRtMzTKgCg0CPYeezz6KxRZT',
+		avatar: 'wavatar',
+		pageSize: 5,
+		recordIp: true,
+		placeholder: 'Just Go Go',
+		visitor: true,
+	});
+</script>
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">此身天地一蘧庐，世事消磨绿鬓疏。</div>
+    <div class="social-container">
+        
+            
+                <a href="https://github.com/xyzper" target="_blank">
+                    <i class="fab fa-github gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        © 2022 - 2023 xyzper
+    </div>
+    <div>
+        Theme by <a href="https://imhanjie.com/" target="_blank">imhanjie</a>, Powered by <a
+                href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://xyzper.github.io/atom.xml" target="_blank">RSS</a></a>
+    </div>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

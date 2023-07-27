@@ -1,0 +1,621 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>NFC技术分享 | xyzper&#39;s 车联网安全博客</title>
+
+<link rel="shortcut icon" href="https://xyzper.github.io/favicon.ico?v=1690429540568">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://xyzper.github.io/styles/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            xyzper&#39;s 车联网安全博客
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+                <div class="nav-item">
+                    
+                        <a href="/" class="menu gt-a-link">
+                            首页
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/archives" class="menu gt-a-link">
+                            归档
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/tags" class="menu gt-a-link">
+                            标签
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/post/about" class="menu gt-a-link" target="_blank">
+                            关于
+                        </a>
+                    
+                </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1690429540568" action="/search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    NFC技术分享
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2023-06-01 ·
+                    </time>
+                    
+                        <a href="https://xyzper.github.io/tag/xMHUgb8VW/" class="post-tags">
+                            # 物联网
+                        </a>
+                    
+                        <a href="https://xyzper.github.io/tag/3m0oAJqAa/" class="post-tags">
+                            # 车联网
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <p>大学期间就一直在零零散散的去研究NFC了，M1的那一套已经是研究的差不多了，许多厂家的门jin和Watercard都搞过，但是那些数据分析方法不好发出来，有兴趣的自己研究吧，我这里只是NFC这个技术本身的影响不涉及那些数据的。CPU卡也研究了一部分，主要是针对1208CPU卡的指令集的，等有时间了再继续整理。</p>
+<!-- more -->
+<h1 id="nfc技术分享">NFC技术分享</h1>
+<h2 id="rfid相关">RFID相关</h2>
+<p>射频技术（RF）是Radio Frequency的缩写。较常见的应用有无线射频识别（Radio Frequency Identification，RFID），常称为感应式电子晶片或近接卡、感应卡、非接触卡、电子标签、电子条码等。其原理为由扫描器发射一特定频率之无线电波能量给接收器，用以驱动接收器电路将内部的代码送出，此时扫描器便接收此代码。</p>
+<p>接收器的特殊在于免用电池、免接触、免刷卡故不怕脏污，且晶片密码为世界唯一无法复制，安全性高、长寿命。RFID的应用非常广泛，典型应用有动物晶片、汽车晶片防盗器、门禁管制、停车场管制、生产线自动化、物料管理。</p>
+<p><strong>标签(Tag)</strong></p>
+<p>由耦合元件及芯片组成，每个标签具有唯一的电子编码，附着在物体上标识目标对象</p>
+<p><strong>阅读器(Reader)</strong></p>
+<p>读取(有时还可以写入)标签信息的设备，可设计为手持式或固定式</p>
+<p><strong>天线(Antenna)</strong></p>
+<p>在标签和读取器间传递射频信号。</p>
+<p>RFID标签有两种：有源标签和<strong>无源标签</strong>。其中高频有源标签UHF被广泛应用于交通运输行业，高速收费路口使用的ETC就是一种UHF。</p>
+<h2 id="设备补充内容">设备补充内容</h2>
+<h3 id="卡片分类"><strong>卡片分类</strong></h3>
+<p>分类方式有很多，IC卡ID卡　接触式IC卡　非接触式IC卡　双界面卡　S50卡 T5577卡.......</p>
+<p><strong>比如接触式IC卡</strong>（当前使用广泛的是接触型IC卡，其表面可以看到一个方型镀金接口，共有八个或六个镀金触点，用于与读写器接触，通过电流信号完成读写。读写操作（称为刷卡）时须将IC卡插入读写器，读写完毕，卡片自动弹出，或人为抽出。接触式IC卡刷卡相对慢，但可靠性高，多用于存储信息量大，读写操作复杂的场合。）</p>
+<p><strong>非接触型IC卡</strong>  具有接触式IC卡同样的芯片技术和特性，最大的区别在于卡上设有射频信号或红外线收发器，在一定距离内即可收发读写器的信号，因而和读写设备之间无机械接触。<br>
+在前述IC卡的电路基础上带有射频收发及相关电路的非接触IC卡被称作“射频卡”或“RF卡”。 这种IC卡常用于身份验证，电子门禁等场合。卡上记录信息简单，读写要求不高，卡型变化也较大，可以作成徽章等形式。</p>
+<h4 id="低频卡"><strong>低频卡</strong></h4>
+<p>125KHz和134KHz</p>
+<p>ID卡 只读卡 序列串</p>
+<p>HID卡</p>
+<p>ID复制卡：</p>
+<p>T5577卡/5200卡</p>
+<p>8678卡 125k/175k/250k/300k/375k/500k</p>
+<p>F8268卡 125k/250k</p>
+<h4 id="高频卡-14443a"><strong>高频卡 -14443A</strong></h4>
+<p>13.56MHz， 主要是Philips的Mifare系列</p>
+<p>M1 S50卡</p>
+<p>普通IC卡，0扇区不可以修改，其他扇区可反复擦写，我们使用的电梯卡、门禁卡等智能卡发卡商所使用的都是 M1 卡，可以理解为物业发的原卡。</p>
+<p>UID卡 （国外称GEN1）</p>
+<p>可以修改任意扇区，作为M1复制的子卡，主要应用在IC卡复制上。该卡片完全兼容mifare 1k卡片。卡片的block0（UID所在的block）可以任意修改，重复修改。</p>
+<p>CUID卡(国外称GEN2)</p>
+<p>可擦写防屏蔽卡，可以重复擦写所有扇区，UID卡复制无效的情况下使用，可以绕过防火墙。</p>
+<p>FUID卡</p>
+<p>不可擦写防屏蔽卡，此卡的特点0扇区只能写入一次，写入一次变成 M1 卡，CUID 复制没用的情况下使用，可以绕过防火墙。</p>
+<p>CFUID卡</p>
+<p>高级复制卡，我们就理解为是 UID 和 FUID 的合成卡，需要封卡操作，不封卡就是 UID 卡，封卡后就变为 M1 卡。</p>
+<p>KUID卡</p>
+<p>GTU/GUID/GDMIC卡</p>
+<p><strong>如何区分ID卡和IC卡？</strong><br>
+<img src="https://xyzper.github.io/post-images/1685586186735.png" alt="" loading="lazy"><br>
+<img src="https://xyzper.github.io/post-images/1685586209379.png" alt="" loading="lazy"></p>
+<h4 id="高频卡-14443b"><strong>高频卡 -14443B</strong></h4>
+<p>CPU卡内有COS（可以简单认为是一个微型的系统），典型的卡COS都是固化进ROM的，而还有部分可以修改COS的CPU卡，这种卡COS是写在EEPROM里的，可以多次修改，简直就是神卡啊。不过由于具有COS，加密协议可以自己定义，安全性是十分高的，破解的难度也是非常大的。</p>
+<p>二代身份证，社保卡，护照</p>
+<p>SRI512卡</p>
+<p>SRIX4K卡</p>
+<h3 id="m1卡数据分析">M1卡数据分析</h3>
+<h4 id="m1卡数据格式">M1卡数据格式</h4>
+<p>M1卡有从0到15共16个扇区，每个扇区配备了从0到3共4个段，每个段可以保存16字节的内容，为什么这里要强调从0开始呢？这跟C语言里面数组下标默认从0开始是差不多的，好计算地址偏移，我们不必太过在意，只是要记住是从0开始，写入数据的时候不要写错地方就可以了。每个扇区的第4个段（也就是3段）是用来保存KeyA，KeyB和控制位的，因为M1卡允许每个扇区有一对独立的密码保护，这样能够更加灵活的控制数据的操作，控制位就是这个扇区各种详细权限计算出来的结果。</p>
+<p>每张M1卡都有一个全球唯一的UID号，这个UID号保存在卡的第一个扇区（0扇区）的第一段（0段），也称为厂商段，其中前4个字节是卡的UID，第5个字节是卡UID的校验位，剩下的是厂商数据。并且这个段在出厂之前就会被设置了写入保护，只能读取不能修改，当然也有例外，有种叫UID卡的特殊卡，UID是没有设置保护的，其实就是厂家不按规范生产的卡，M1卡出厂是要求要锁死UID的。下图很清晰的列出了M1卡的结构。</p>
+<figure data-type="image" tabindex="1"><img src="https://xyzper.github.io/post-images/1685586219208.png" alt="" loading="lazy"></figure>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">区块</th>
+<th>区块类型</th>
+<th>数据内容</th>
+<th></th>
+<th>块号</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">【扇区0】块0</td>
+<td>数据块</td>
+<td><strong>0C B3 63 61</strong>  <code>BD</code> 08 04 00 02 73 39 F2 22 87 0B 1D</td>
+<td>UID卡号<strong>0C B3 63 61</strong></td>
+<td>0</td>
+</tr>
+<tr>
+<td style="text-align:left">块1</td>
+<td>数据块</td>
+<td>A6 AD BF AB A9 B8 AD AB D9 D0 D9 D8 DB D9 10 35</td>
+<td>存储数据</td>
+<td>1</td>
+</tr>
+<tr>
+<td style="text-align:left">块2</td>
+<td>数据块</td>
+<td>00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00</td>
+<td>存储数据</td>
+<td>2</td>
+</tr>
+<tr>
+<td style="text-align:left">块3</td>
+<td>控制块</td>
+<td>BC FE B8 35 31 85 <strong>7F 07 88 99</strong> C7 17 0D 44 62 AD</td>
+<td>控制位<strong>7F 07 88 99</strong></td>
+<td>3</td>
+</tr>
+<tr>
+<td style="text-align:left">【扇区1】块0</td>
+<td>数据块</td>
+<td></td>
+<td></td>
+<td>4</td>
+</tr>
+<tr>
+<td style="text-align:left">块1</td>
+<td>数据块</td>
+<td></td>
+<td></td>
+<td>5</td>
+</tr>
+<tr>
+<td style="text-align:left">...</td>
+<td>...</td>
+<td>.....</td>
+<td>.....</td>
+<td>....</td>
+</tr>
+<tr>
+<td style="text-align:left">块3</td>
+<td>控制块</td>
+<td></td>
+<td></td>
+<td>59</td>
+</tr>
+<tr>
+<td style="text-align:left">块0</td>
+<td>数据块</td>
+<td>00 00 15 F4 00 00 00 00 00 00 00 00 05 0D 43 95</td>
+<td>余额‭56.20‬</td>
+<td>60</td>
+</tr>
+<tr>
+<td style="text-align:left">块1</td>
+<td>数据块</td>
+<td>00 00 15 F4 00 00 00 00 00 00 00 00 05 0D 43 95</td>
+<td></td>
+<td>61</td>
+</tr>
+<tr>
+<td style="text-align:left">块2</td>
+<td>数据块</td>
+<td>00 00 00 00 00 00 00 00 00 00 00 00 00 00 AA 2E</td>
+<td></td>
+<td>62</td>
+</tr>
+<tr>
+<td style="text-align:left">块3</td>
+<td>控制块</td>
+<td>密钥+控制位+密钥</td>
+<td></td>
+<td>63</td>
+</tr>
+</tbody>
+</table>
+<h4 id="控制位详解">控制位详解</h4>
+<p>​     这个是每个扇区 最后一块的存储控制结构，一共4个字节，例如：（<strong>7F 07 88 99</strong>） 。这里记住一个特殊的数据 <strong>FF 07 80 69</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:right">BC FE B8 35 31 85</th>
+<th style="text-align:center"><strong>7F 07 88 99</strong></th>
+<th style="text-align:left">C7 17 0D 44 62 AD</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">密钥A</td>
+<td style="text-align:center">控制位</td>
+<td style="text-align:left">密钥B</td>
+</tr>
+</tbody>
+</table>
+<p>其中<strong>7F 07 88 99</strong>是四个16进制位， 这些数字是16进制的数字，然后一个1byte（字节）=8bits，所以他们的结构如下：</p>
+<table>
+<thead>
+<tr>
+<th>控制位\bit</th>
+<th>7</th>
+<th>6</th>
+<th>5</th>
+<th>4</th>
+<th>3</th>
+<th>2</th>
+<th>1</th>
+<th>0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>7F</td>
+<td>C23_b</td>
+<td>C22_b</td>
+<td>C21_b</td>
+<td>C20_</td>
+<td>C13_b</td>
+<td>C12_b</td>
+<td>C11_b</td>
+<td>C10_b</td>
+</tr>
+<tr>
+<td>07</td>
+<td>C13</td>
+<td>C12</td>
+<td>C11</td>
+<td>C10</td>
+<td>C33_b</td>
+<td>C32_b</td>
+<td>C31_b</td>
+<td>C30_b</td>
+</tr>
+<tr>
+<td>88</td>
+<td>C33</td>
+<td>C32</td>
+<td>C31</td>
+<td>C30</td>
+<td>C23</td>
+<td>C22</td>
+<td>C21</td>
+<td>C20</td>
+</tr>
+<tr>
+<td>99</td>
+<td>预留</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>控制位\bit</th>
+<th>7</th>
+<th>6</th>
+<th>5</th>
+<th>4</th>
+<th>3</th>
+<th>2</th>
+<th>1</th>
+<th>0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>7F</td>
+<td>C23_b</td>
+<td>C22_b</td>
+<td>C21_b</td>
+<td>C20_b</td>
+<td>C13_b</td>
+<td>C12_b</td>
+<td>C11_b</td>
+<td>C10_b</td>
+</tr>
+<tr>
+<td>0111 1111</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>07</td>
+<td>C13</td>
+<td>C12</td>
+<td>C11</td>
+<td>C10</td>
+<td>C33_b</td>
+<td>C32_b</td>
+<td>C31_b</td>
+<td>C30_b</td>
+</tr>
+<tr>
+<td>0000 0111</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>88</td>
+<td>C33</td>
+<td>C32</td>
+<td>C31</td>
+<td>C30</td>
+<td>C23</td>
+<td>C22</td>
+<td>C21</td>
+<td>C20</td>
+</tr>
+<tr>
+<td>1000 1000</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>99</td>
+<td>预留</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>三个控制位以正和反两种形式存在于存取控制字节中，决定了该块的访问权限（如： 进行减值操作必须验证KEY A，进行加值操作必须验证KEY B，等等）。因为控制字是由部分控制位取反的来的，由上表C33_b就可知道，所以我们要再取反一次获取原来的控制位，就能得出下面的控制位（_b为取反，比如：C33为1取反后为C33_b为0）</p>
+<p>7F0788  99</p>
+<p>1000 0000</p>
+<p>0000 1000</p>
+<p>1000 1000</p>
+<p>在存取控制中每个块都有相应的三个控制位,定义如下：</p>
+<p>块0：  C10  C20  C30                                                      0      0      0     权限为： 通过A或者B密码认证后可读，可写，可进行加值和减值操作。</p>
+<p>块1：  C11  C21  C31                                                       0      0      0    权限为： 通过A或者B密码认证后可读，可写，可进行加值和减值操作。</p>
+<p>块2：  C12  C22  C32       对应上表数据可得——            0      0      0    权限为： 通过A或者B密码认证后可读，可写，可进行加值和减值操作。</p>
+<p>块3：  C13  C23  C33                                                       0      1      1    权限为： 通过B密码认证后可读，可写。</p>
+<figure data-type="image" tabindex="2"><img src="pic%5C%E5%AD%98%E5%8F%96%E6%8E%A7%E5%88%B6%E4%BD%8D.png" alt="" loading="lazy"></figure>
+<p><strong>FF 07 80 69</strong>    默认出厂控制位</p>
+<h4 id="提高密钥的保密性">提高密钥的保密性</h4>
+<p>通过更改控制位来使得必须获取AB密钥的全部内容才可以读写数据，或者更加严格的规则。</p>
+<h4 id="一卡一密">一卡一密</h4>
+<p>难度太高，内容待定</p>
+<h3 id="nfc破解工具"><strong>NFC破解工具</strong></h3>
+<h4 id="proxmark3-easy"><strong>Proxmark3 Easy</strong></h4>
+<p>国内翻版的pm3设备，可以使用国产固件也可以使用官方的offical或者RRG固件，也可以使用冰人固件，快速响应中国后门，价格便宜，性能强，但较官方版本相比嗅探能力略有不足。</p>
+<h4 id="proxmark3-rdv4"><strong>Proxmark3 rdv4</strong></h4>
+<p>rdv4是目前官方发布的最新版本，与国产的Proxmark3 X 版本功能基本类似，带有蓝牙无线连接、在线嗅探、离线嗅探等多种功能。<br>
+缺点：价格较贵</p>
+<h4 id="chameleon-e版g版"><strong>chameleon E版/G版</strong></h4>
+<p>E版本的模拟功能较弱，会被绝大部分的防火墙检测到，所以E版本的变色龙模拟出来的NFC卡大概率无法识别，不如UID卡复制来的快。</p>
+<p>G版本的模拟功能较强，一个变色龙设备可以模拟8张M1卡，按键切换。</p>
+<p>两个版本均支持嗅探，可以嗅探出一个或多个密钥。</p>
+<h4 id="pn532">PN532</h4>
+<p>一个最基础款的NFC读写模块，通过ch340串口工具可以接入到笔记本上，直接实现对存在PRNG weak的卡片爆破密钥，不过效率较慢。但是PN532存在空闲针脚，曾有想法通过其他空闲针脚来实现模拟一张M1卡，或可以成为NFC中继攻击的一种解决方案（只适用于M1卡，CPU卡无法使用）。</p>
+<h4 id="acr122">ACR122</h4>
+<p>ACR122是研究CPU卡的必备工具，但是购买的时候小心部分商家拿内置的532当122出来卖。<br>
+<img src="https://xyzper.github.io/post-images/1685586256512.jpg" alt="" loading="lazy"><br>
+<img src="https://xyzper.github.io/post-images/1685586270016.png" alt="" loading="lazy"></p>
+<p>除此之外还有很多其他型号的NFC读写工具，其中还有很多具有特殊功能的设备。如、SONY_RCS360 、SCM_SCL3712等。</p>
+<h3 id="nfc卡片类型判断"><strong>NFC卡片类型判断</strong></h3>
+<blockquote>
+<p>这里展示都是常见的NFC卡类型，像一些特殊的卡片类型没有做展示。</p>
+</blockquote>
+<p>通过proxmark3判断NFC卡片类型 （高频卡 ）</p>
+<p>命令：hf 14a info<br>
+该卡为CPU卡，使用的加密芯片和加密算法要视情况而且，目前（2022.06）只有部分门禁系统的CPU卡可以破解并复制，特殊用途的卡片均不可复制，如银行卡、汽车卡片钥匙、身份证等。其中CPU卡分为CPU模拟卡和纯CPU卡</p>
+<p>该卡为UID卡 存在Magic后门可以直接使用魔法指令写入或读取数据而无需密钥，一般作为复制卡使用。</p>
+<p>该卡为普通M1卡，虽然不存在后门但是Prng weak 可以通过特殊手段直接破解密钥。</p>
+<h1 id="破解实现">破解实现</h1>
+<h2 id="m1卡破解复制">M1卡破解复制</h2>
+<p>主要芯片：Mifare UtraLight IC U1、Mifare DESFire 4K；Legic MIM256 ；ST  SR176、SRIX4K；I·CODE 1、 I·CODE 2；Tag-it HF-I、Tag-it TH-CB1A；Temic  e5551；Atmel T5557、Atmel T5567、Atmel AT88RF256-12 ；Hitag1、 Hitag 2；μEM  EM4100、EM 4102、 EM4069、EM4150；TK4100；Inside 2K、Inside 16K</p>
+<p>卡片的安全性测试，我个人的总体流程就是如下：</p>
+<p>首先，判断卡的类型，是IC还是ID。<br>
+如果是ID卡，那么</p>
+<blockquote>
+<p>读卡片ID→换白卡→写入ID卡号→克隆完成→攻击成功</p>
+</blockquote>
+<p>ID卡是低频卡，思路比较简单，IC卡为高频卡，攻击的思路可不少。</p>
+<p>IC卡的总体思路如下：</p>
+<blockquote>
+<p>漏洞测试→获取全卡数据→换上UID卡→写入数据→攻击成功</p>
+</blockquote>
+<p>如果执行数据修改，思路如下：</p>
+<blockquote>
+<p>漏洞测试→读全卡数据→解密卡片数据→破解厂商算法→修改数据→攻击成功。</p>
+</blockquote>
+<p>（1）暴力破解</p>
+<p>暴力破解是破解工作永远的话题，只要你拥有庞大的计算资源，管你什么密码都能破解。而且，在CRYPTO1算法的细节没有被泄露之前，最有效的方法就是暴破了。还有一个很重要的原因就是，M1卡是被动卡，需要读卡器为它提供能量，一旦读卡器切断了电源，卡中的临时数据就会丢失，这样就没有办法记录下攻击者究竟输错了多少次密码，卡永远不会因为密码输入错误太多而被锁定，只要攻击者有时间慢慢跟它耗，密码肯定会出来的。</p>
+<p>（2）重放攻击</p>
+<p>重放攻击是基于M1卡的PRNG算法漏洞实现的，当卡接近读卡器获得能量的时候，就会开始生成随机数序列，但这有一个问题，因为卡是被动式卡，本身自己不带电源，所以断电后数据没办法保存，这时基于LSRF的PRNG算法缺陷就出来了，每次断电后再重新接入电，卡就会生成一摸一样的随机数序列，所以我们就有可能把这个序列计算出来，所以只有我们控制好时间，就能够知道在获得能量后的某一刻时间的随机数是多少，然后进行重放攻击，就有可能篡改正常的数据。如果卡的所有权在我们手上的时候，我们甚至不需要浪费太多的时间就可以实现。</p>
+<p>（3）克隆卡片</p>
+<p>这是一个很简单也很实用的方法，因为M1卡自带扇区可以保存数据，所以大部分的卡片会选择加密扇区后将数据保存在里面，所以我们完全可以克隆一张带有一样数据的克隆卡。这就会用到一种叫uid卡的特殊M1模拟卡，前面说到每张M1卡在0扇区第1段都会有一个全球唯一的UID编号，而且这个块在出厂之后是被厂商设定保护无法修改的，uid卡就是没有设定0扇区保护的卡，所以你可以随意的修改你想要的uid，这样我们就可以克隆出一张连uid都相同的卡片了。</p>
+<p>（4）密钥流窃听</p>
+<p>利用神器proxmark 3可以嗅探到全部扇区都加密的M1卡，在卡和已经授权的读卡器交换数据的时候进行窃听，就能把tag数据读取出来，利用XOR算key工具就可以把扇区的密钥计算出来，这也是PRNG算法的漏洞所导致的。</p>
+<p>（5）验证漏洞</p>
+<p>验证漏洞是目前使用最多的M1破解手段，在读卡器尝试去读取一个扇区时，卡会首先发一个随机数给读卡器，读卡器接到随机数之后利用自身的算法加密这个随机数再反馈回给卡，卡再用自己的算法计算一次，发现结果一致的话就认为读卡器是授权了的，然后就用开始自己的算法加密会话并跟读卡器进行传送数据。这时候问题就来了，当我们再次尝试去访问另一个扇区，卡片又会重复刚才那几个步骤，但此时卡跟读卡器之间的数据交换已经是被算法加密了的，而这个算法又是由扇区的密钥决定的，所以密钥就被泄露出来了。因此验证漏洞要求我们至少知道一个扇区的密钥，但目前大部分的扇区都没有全部加密，所以很容易就会被破解。</p>
+<h2 id="嗅探获取密钥"><strong>嗅探获取密钥</strong></h2>
+<p>手头没有卡做演示，暂搁置。有机会回来补上</p>
+<h2 id="nfc中继攻击"><strong>NFC中继攻击</strong></h2>
+<p><a href="https://github.com/nfcgate/nfcgate">GitHub - nfcgate/nfcgate: An NFC research toolkit application for Android</a><br>
+1、需要准备：<br>
+Google pixel4 *2 (至少有一台Root)<br>
+Release nfcgate.APK <a href="https://github.com/nfcgate/nfcgate/releases">直达链接</a></p>
+<p>2、搭建nfcgate Server<a href="https://github.com/nfcgate/server">直达链接</a><br>
+server运行 一键执行即可<code>python server.py</code><br>
+3、两台手机均连接到运行的server<br>
+在设置中填写Hostname，Port默认5566，Session只要两个手机一致即可。<br>
+连接正常提示 <code>Network: Connected, wait for partner</code><br>
+<img src="https://xyzper.github.io/post-images/1685587289523.jpg" alt="" loading="lazy"><br>
+两台设备都填写成功上线的话RelayMode会出现绿色提示。<br>
+<img src="https://xyzper.github.io/post-images/1685587356489.png" alt="" loading="lazy"><br>
+4、使用Relay Mode<br>
+模拟卡的那个手机必须要Root，也就是点TAG显示wait for reader的那个。<br>
+然后拿着两个手机一个刷卡 一个刷车就好了。</p>
+<h2 id="cpu卡片破解">CPU卡片破解</h2>
+<p>这里做个提示需要去学习1208cpu卡，具体资料不合规，来源请自行寻找。</p>
+<p>NFC中继攻击曾在好多个车型中复现成功，之前一直是不知道怎么修复，认为是技术实现的缺陷（NFC的工作机制导致其可被中继攻击），后来发现只要跟开发商提安全需求是可以修复的，具体的原理没深究过。现在也陆续发现部分车型已经不能复现成功了。</p>
+<h1 id="参考链接">参考链接</h1>
+<h3 id="官方github">官方GitHub</h3>
+<p><a href="https://github.com/RfidResearchGroup">RfidResearchGroup</a>/<strong><a href="https://github.com/RfidResearchGroup/RFIDtools">RFIDtools</a></strong></p>
+<p><a href="https://github.com/RfidResearchGroup">RfidResearchGroup</a>/<strong><a href="https://github.com/RfidResearchGroup/proxmark3">proxmark3</a></strong></p>
+<p><a href="https://github.com/RfidResearchGroup">RfidResearchGroup</a>/<strong><a href="https://github.com/RfidResearchGroup/ChameleonMini">ChameleonMini</a></strong></p>
+<p><a href="https://github.com/RfidResearchGroup">RfidResearchGroup</a>/<strong><a href="https://github.com/RfidResearchGroup/homebrew-proxmark3">homebrew-proxmark3</a></strong></p>
+<p><a href="https://github.com/RfidResearchGroup">RfidResearchGroup</a>/<strong><a href="https://github.com/RfidResearchGroup/ChameleonBLEAPI">ChameleonBLEAPI</a></strong></p>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://xyzper.github.io/post/zhan-yi-chu/" class="post-title gt-a-link">
+                    栈溢出
+                </a>
+            </div>
+        
+
+        
+            <span id="/post/nfc-ji-zhu-fen-xiang/" class="leancloud_visitors" data-flag-title="NFC技术分享">
+                <em class="post-meta-item-text">阅读量 </em>
+                <i class="leancloud-visitors-count">0</i>
+            </span>
+        
+
+        
+
+        
+            <script src='https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js'></script>
+
+<style>
+	div#vcomments{
+		width:100%;
+		max-width: 1000px;
+		padding: 2.5%
+	}
+</style>
+
+
+	<div id="vcomments"></div>
+
+<script>
+	new Valine({
+		el: '#vcomments',
+		appId: 'bKtunv6JZMJ73H89Y8lL7ZMc-gzGzoHsz',
+		appKey: 'yRtMzTKgCg0CPYeezz6KxRZT',
+		avatar: 'wavatar',
+		pageSize: 5,
+		recordIp: true,
+		placeholder: 'Just Go Go',
+		visitor: true,
+	});
+</script>
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">此身天地一蘧庐，世事消磨绿鬓疏。</div>
+    <div class="social-container">
+        
+            
+                <a href="https://github.com/xyzper" target="_blank">
+                    <i class="fab fa-github gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        © 2022 - 2023 xyzper
+    </div>
+    <div>
+        Theme by <a href="https://imhanjie.com/" target="_blank">imhanjie</a>, Powered by <a
+                href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://xyzper.github.io/atom.xml" target="_blank">RSS</a></a>
+    </div>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+</script>
+
+    </div>
+</div>
+</body>
+</html>
